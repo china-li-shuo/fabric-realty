@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"application/blockchain"
-	_ "application/model"
+	//_ "application/model"
 	"application/pkg/cron"
 	"application/routers"
 )
@@ -23,7 +23,7 @@ func main() {
 	go cron.Init()
 
 	//启动端口
-	endPoint := fmt.Sprintf("0.0.0.0:%d", 8899)
+	endPoint := fmt.Sprintf("0.0.0.0:%d", 8888)
 	server := &http.Server{
 		Addr:    endPoint,
 		Handler: routers.InitRouter(),
