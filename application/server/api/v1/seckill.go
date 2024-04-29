@@ -45,8 +45,8 @@ func SecKill(c *gin.Context) {
 		return
 	}
 
-	//判断用户是否已经抢购到这件商品了 buy_scekill_good_1
-	IsBuyMember := "buy_scekill_good_" + strconv.Itoa(body.GoodID)
+	//判断用户是否已经抢购到这件商品了 set_buy_scekill_good_1
+	IsBuyMember := "set_buy_scekill_good_" + strconv.Itoa(body.GoodID)
 
 	//链接redis
 	ctx := context.Background()
@@ -58,9 +58,32 @@ func SecKill(c *gin.Context) {
 	})
 
 	//查找用户id有没有在redis的set集合里
-	fmt.Println(rdb.SIsMember(ctx, IsBuyMember, body.UserID).Val())
 	if rdb.SIsMember(ctx, IsBuyMember, body.UserID).Val() {
 		appG.Response(http.StatusBadRequest, "你已经参与过秒杀了！", nil)
+		return
+	}
+
+	//判断商品是否有库存(去查询redis的队列长度) list_scekill_good_1
+	SeckillGoodsList := "list_scekill_good_" + strconv.Itoa(body.GoodID)
+
+	//判断redis的key是否存在，如果队列不存在，第一个人先去数据库查库存，然后同步到redis的队列中（最好是提前预热）
+	if rdb.Exists(ctx, SeckillGoodsList).Val() == 0 {
+		var goodsData model.Goods
+		tx := model.DB.Model(&model.Goods{}).First(&goodsData, body.GoodID)
+		if tx.RowsAffected == 0 {
+			appG.Response(http.StatusNotFound, "没有该商品", nil)
+			return
+		}
+		//把商品的库存写入到队列中
+		for i := 0; i < goodsData.Stock; i++ {
+			rdb.RPush(ctx, SeckillGoodsList, 1)
+		}
+	}
+
+	//判断队列的长度
+	listLen := rdb.LLen(ctx, SeckillGoodsList).Val()
+	if listLen <= 0 {
+		appG.Response(http.StatusBadRequest, "库存不足！", nil)
 		return
 	}
 
