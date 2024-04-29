@@ -27,6 +27,11 @@ func InitRouter() *gin.Engine {
 		apiV1.POST("/queryDonatingList", v1.QueryDonatingList)
 		apiV1.POST("/queryDonatingListByGrantee", v1.QueryDonatingListByGrantee)
 		apiV1.POST("/updateDonating", v1.UpdateDonating)
+
+		//秒杀
+		apiV1.POST("/secKill", v1.SecKill)
+
+		//支付
 	}
 	return r
 }
