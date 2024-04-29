@@ -1,20 +1,23 @@
 package v1
 
 import (
+	"context"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
 
 	"application/model"
 	"application/pkg/app"
 )
 
 type SeckillGoods struct {
-	GoodID     string `json:"good_id" form:"good_id"`         //商品ID
-	UserID     string `json:"user_id" form:"user_id"`         //用户ID
-	ActivityID string `json:"activity_id" form:"activity_id"` //活动ID
+	GoodID     int `json:"good_id" form:"good_id"`         //商品ID
+	UserID     int `json:"user_id" form:"user_id"`         //用户ID
+	ActivityID int `json:"activity_id" form:"activity_id"` //活动ID
 }
 
 // SecKill 秒杀
@@ -39,6 +42,25 @@ func SecKill(c *gin.Context) {
 
 	if int(timestamp) < activityData.StartTime {
 		appG.Response(http.StatusBadRequest, "活动未开启", nil)
+		return
+	}
+
+	//判断用户是否已经抢购到这件商品了 buy_scekill_good_1
+	IsBuyMember := "buy_scekill_good_" + strconv.Itoa(body.GoodID)
+
+	//链接redis
+	ctx := context.Background()
+
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       7,  // use default DB
+	})
+
+	//查找用户id有没有在redis的set集合里
+	fmt.Println(rdb.SIsMember(ctx, IsBuyMember, body.UserID).Val())
+	if rdb.SIsMember(ctx, IsBuyMember, body.UserID).Val() {
+		appG.Response(http.StatusBadRequest, "你已经参与过秒杀了！", nil)
 		return
 	}
 
