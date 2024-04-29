@@ -30,7 +30,6 @@ func InitRouter() *gin.Engine {
 
 		//秒杀
 		apiV1.POST("/secKill", v1.SecKill)
-
 		//支付
 	}
 	return r

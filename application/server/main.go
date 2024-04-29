@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"application/blockchain"
+	_ "application/model"
 	"application/pkg/cron"
 	"application/routers"
 )
