@@ -79,6 +79,13 @@ type DonatingGrantee struct {
 	Donating   Donating `json:"donating"`   //捐赠对象
 }
 
+// 公安局-不良记录
+type BadRecord struct {
+	Name   string `json:"name"`
+	IdCard string `json:"id_card"`
+	IsLock string `json:"is_lock"`
+}
+
 // 这个常量是用来定义写入账本的类型
 const (
 	AccountKey         = "account-key"
@@ -87,4 +94,5 @@ const (
 	SellingBuyKey      = "selling-buy-key"
 	DonatingKey        = "donating-key"
 	DonatingGranteeKey = "donating-grantee-key"
+	BadRecordKey       = "bad-record-key"
 )

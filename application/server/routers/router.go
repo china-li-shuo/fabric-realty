@@ -29,9 +29,14 @@ func InitRouter() *gin.Engine {
 		apiV1.POST("/updateDonating", v1.UpdateDonating)
 
 		//秒杀
-		apiV1.POST("/secKill", v1.SecKill)
-		apiV1.POST("/stockHot", v1.StockHot)
+		//apiV1.POST("/secKill", v1.SecKill)
+		//apiV1.POST("/stockHot", v1.StockHot)
 		//支付
+
+		//公安局的不良信息添加
+		apiV1.POST("/badRecordAdd", v1.BadRecordAdd)
+		//公安局查询不良记录
+		apiV1.GET("/queryBadRecord", v1.QueryBadRecord)
 	}
 	return r
 }

@@ -29,7 +29,7 @@
     "TaobaoMSP": {
       "mspid": "TaobaoMSP",
       "adminPrivateKey": {
-        "path": "/tmp/crypto/peerOrganizations/taobao.com/users/Admin@taobao.com/msp/keystore/5004f2aadbd230ed79ec86d89784ebe8b701cdc742cc642953e6aa57b468d02f_sk"
+        "path": "/tmp/crypto/peerOrganizations/taobao.com/users/Admin@taobao.com/msp/keystore/767e47feed9bafcae990af537b02ef2d0614b5d9570513c898c162f41c0a473b_sk"
       },
       "peers": [
         "peer0.taobao.com"
