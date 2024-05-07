@@ -35,8 +35,12 @@ func InitRouter() *gin.Engine {
 
 		//公安局的不良信息添加
 		apiV1.POST("/badRecordAdd", v1.BadRecordAdd)
-		//公安局查询不良记录
-		apiV1.GET("/queryBadRecord", v1.QueryBadRecord)
+
+		//公安局-根据身份证号查询用户最新的不良记录
+		apiV1.GET("/queryBadRecordLatestByIdCard", v1.QueryBadRecordLatestByIdCard)
+
+		//公安局-根据身份证号查询历史的不良记录信息
+		apiV1.GET("/queryBadRecordListByIdCard", v1.QueryBadRecordListByIdCard)
 	}
 	return r
 }

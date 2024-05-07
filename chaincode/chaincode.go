@@ -78,6 +78,8 @@ func (t *BlockChainRealEstate) Invoke(stub shim.ChaincodeStubInterface) pb.Respo
 		return api.UpdateDonating(stub, args)
 	case "badRecordAdd":
 		return api.BadRecordAdd(stub, args) //公安局-不良信息记录添加
+	case "queryBadRecord":
+		return api.QueryBadRecord(stub, args) //公安局-不良信息记录添加
 	default:
 		return shim.Error(fmt.Sprintf("没有该功能: %s", funcName))
 	}

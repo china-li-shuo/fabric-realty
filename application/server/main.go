@@ -24,6 +24,8 @@ func main() {
 
 	//启动端口
 	endPoint := fmt.Sprintf("0.0.0.0:%d", 8888)
+	//本地开发端口号
+	//endPoint := fmt.Sprintf("0.0.0.0:%d", 8899)
 	server := &http.Server{
 		Addr:    endPoint,
 		Handler: routers.InitRouter(),

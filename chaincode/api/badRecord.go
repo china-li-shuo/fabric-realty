@@ -43,3 +43,27 @@ func BadRecordAdd(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	// 成功返回
 	return shim.Success(badRecordByte)
 }
+
+// QueryBadRecord 查询不良记录
+func QueryBadRecord(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	var badRecordList []model.BadRecord
+	results, err := utils.GetStateByPartialCompositeKeys2(stub, model.BadRecordKey, args)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("%s", err))
+	}
+	for _, v := range results {
+		if v != nil {
+			var badRecord model.BadRecord
+			err := json.Unmarshal(v, &badRecord)
+			if err != nil {
+				return shim.Error(fmt.Sprintf("QueryBadRecordlist-反序列化出错: %s", err))
+			}
+			badRecordList = append(badRecordList, badRecord)
+		}
+	}
+	badRecordListByte, err := json.Marshal(badRecordList)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("QueryBadRecord-序列化出错: %s", err))
+	}
+	return shim.Success(badRecordListByte)
+}
