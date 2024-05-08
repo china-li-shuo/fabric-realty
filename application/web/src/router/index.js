@@ -17,7 +17,7 @@ import Layout from '@/layout'
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    roles: ['admin','editor','gonganju']    control the page roles (you can set multiple roles)
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
@@ -35,26 +35,24 @@ export const constantRoutes = [{
   component: () => import('@/views/login/index'),
   hidden: true
 },
-
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/home',
+    children: [{
+      path: 'home',
+      name: 'home',
+      component: () => import('@/views/home/list/index'),
+      meta: {
+        title: '首页',
+        icon: 'realestate'
+      }
+    }]
+  },
 {
   path: '/404',
   component: () => import('@/views/404'),
   hidden: true
-},
-
-{
-  path: '/',
-  component: Layout,
-  redirect: '/realestate',
-  children: [{
-    path: 'realestate',
-    name: 'Realestate',
-    component: () => import('@/views/realestate/list/index'),
-    meta: {
-      title: '房产信息',
-      icon: 'realestate'
-    }
-  }]
 }
 ]
 
@@ -64,12 +62,28 @@ export const constantRoutes = [{
  */
 export const asyncRoutes = [
   {
+    path: '/realestate',
+    component: Layout,
+    redirect: '/realestate',
+    children: [{
+      path: 'realestate',
+      name: 'Realestate',
+      component: () => import('@/views/realestate/list/index'),
+      meta: {
+        title: '房产信息',
+        roles: ['editor','admin'],
+        icon: 'realestate'
+      }
+    }]
+  },
+  {
     path: '/selling',
     component: Layout,
     redirect: '/selling/all',
     name: 'Selling',
     alwaysShow: true,
     meta: {
+      roles: ['editor','admin'],
       title: '销售',
       icon: 'selling'
     },
@@ -110,6 +124,7 @@ export const asyncRoutes = [
     name: 'Donating',
     alwaysShow: true,
     meta: {
+      roles: ['editor','admin'],
       title: '捐赠',
       icon: 'donating'
     },
@@ -159,7 +174,23 @@ export const asyncRoutes = [
       }
     }]
   },
-
+  {
+    path: '/gonganju',
+    component: Layout,
+    meta: {
+      roles: ['gonganju']
+    },
+    redirect: '/gonganju',
+    children: [{
+      path: 'gonganju',
+      name: 'GongAnJu',
+      component: () => import('@/views/gonganju/list/index'),
+      meta: {
+        title: '不良信息管理',
+        icon: 'realestate'
+      }
+    }]
+  },
   // 404 page must be placed at the end !!!
   {
     path: '*',

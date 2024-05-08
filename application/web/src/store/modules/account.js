@@ -75,7 +75,9 @@ const actions = {
         var roles
         if (response[0].userName === '管理员') {
           roles = ['admin']
-        } else {
+        } else if(response[0].userName === '公安局'){
+          roles = ['gonganju']
+        }else {
           roles = ['editor']
         }
         commit('SET_ROLES', roles)

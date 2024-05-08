@@ -10,3 +10,7 @@
 
 前端：更改 `web/vue.config.js` 中的后端接口地址 `http://127.0.0.1:8888` 后，执行 `yarn install`
 下载依赖，执行 `yarn run dev`
+
+tips:如果  `yarn install`失败需要关闭强证书校验 `yarn config set "strict-ssl" false -g ` 再次重新  `yarn install` 就可以了
+
+

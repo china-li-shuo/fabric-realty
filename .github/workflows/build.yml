@@ -3,9 +3,9 @@ name: Build Docker Image
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -23,10 +23,10 @@ jobs:
         with:
           context: application/server
           push: true
-          tags: togettoyou/fabric-realty.server:latest
+          tags: itshujia/fabric-realty.server:latest
       - name: Build and push application.web
         uses: docker/build-push-action@v2
         with:
           context: application/web
           push: true
-          tags: togettoyou/fabric-realty.web:latest
+          tags: itshujia/fabric-realty.web:latest

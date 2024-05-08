@@ -63,8 +63,8 @@ func ChannelQuery(fcn string, args [][]byte) (channel.Response, error) {
 	// 对区块链账本查询的操作（调用了链码的invoke），只返回结果
 	resp, err := cli.Query(channel.Request{
 		ChaincodeID: chainCodeName, //默认链码名称 fabric-realty 房产（不动产）链
-		Fcn:         fcn,           //queryAccountList 链码里的方法
-		Args:        args,          //accountId 登录账户id
+		Fcn:         fcn,
+		Args:        args,
 	}, channel.WithTargetEndpoints(endpoints...)) //endpoints 节点 peer0.jd.com  peer0.taobao.com
 	if err != nil {
 		return channel.Response{}, err
