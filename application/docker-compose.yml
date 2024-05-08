@@ -8,7 +8,7 @@ networks:
 services:
   # 后端
   fabric-realty.server:
-    # 默认使用我编译好放在 Docker Hub 上的镜像： itshujia/fabric-realty.server:latest
+    # 默认使用我编译好放在 Docker Hub 上的镜像： itshujia/fabric-realty.server:latest ,latest镜像也就是对应的master分支代码，dev镜像对应dev分支代码
     image: itshujia/fabric-realty.server:latest
     # 如改动代码需要自行编译（进入 server 执行 ./build.sh ）并使用本地镜像：fabric-realty.server:latest
     # image: fabric-realty.server:latest
