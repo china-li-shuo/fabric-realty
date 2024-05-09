@@ -76,7 +76,7 @@ const actions = {
         if (response[0].userName === '管理员') {
           roles = ['admin']
         } else if(response[0].userName === '公安局'){
-          roles = ['gonganju']
+          roles = ['badrecord']
         }else {
           roles = ['editor']
         }

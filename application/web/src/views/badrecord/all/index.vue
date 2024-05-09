@@ -1,5 +1,5 @@
 <template>
-   <div>不良记录</div>
+   <div>不良记录列表</div>
 </template>
 
 <script>
@@ -10,7 +10,7 @@
     import { createDonating } from '@/api/donating'
 
     export default {
-        name: 'GongAnJu',
+        name: 'BadRecordAll',
         data() {
            return {}
         },

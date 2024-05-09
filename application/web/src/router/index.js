@@ -17,11 +17,11 @@ import Layout from '@/layout'
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
-    roles: ['admin','editor','gonganju']    control the page roles (you can set multiple roles)
+    roles: ['admin','editor','badrecord']    control the page roles (you can set multiple roles)
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+    activeMenu: '/example/all'  if set path, the sidebar will highlight the path you set
   }
  */
 
@@ -174,22 +174,40 @@ export const asyncRoutes = [
       }
     }]
   },
+
   {
-    path: '/gonganju',
+    path: '/badrecord',
     component: Layout,
+    redirect: '/badrecord/all',
+    name: 'BadRecord',
+    alwaysShow: true,
     meta: {
-      roles: ['gonganju']
+      roles: ['badrecord'],
+      title: '不良记录管理',
+      icon: 'addRealestate'
     },
-    redirect: '/gonganju',
-    children: [{
-      path: 'gonganju',
-      name: 'GongAnJu',
-      component: () => import('@/views/gonganju/list/index'),
-      meta: {
-        title: '不良信息管理',
-        icon: 'realestate'
+    children: [
+        {
+        path: 'all',
+        name: 'BadRecordAll',
+        component: () => import('@/views/badrecord/all/index'),
+        meta: {
+          roles: ['badrecord'],
+          title: '所有用户不良记录',
+          icon: 'addRealestate'
+        }
+      },
+      {
+        path: 'add',
+        name: 'BadRecordAdd',
+        component: () => import('@/views/badrecord/add/index'),
+        meta: {
+          roles: ['badrecord'],
+          title: '不良记录添加',
+          icon: 'addRealestate'
+        }
       }
-    }]
+    ]
   },
   // 404 page must be placed at the end !!!
   {

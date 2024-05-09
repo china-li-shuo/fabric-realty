@@ -26,7 +26,7 @@ func (t *BlockChainRealEstate) Init(stub shim.ChaincodeStubInterface) pb.Respons
 		"4e07408562be",
 		"4b227777d4dd",
 		"ef2d127de37b",
-		"gonganju",
+		"badrecord",
 	}
 	var userNames = [7]string{"管理员", "①号业主", "②号业主", "③号业主", "④号业主", "⑤号业主", "公安局"}
 	var balances = [7]float64{0, 5000000, 5000000, 5000000, 5000000, 5000000, 0}
