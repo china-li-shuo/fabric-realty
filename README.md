@@ -3,6 +3,7 @@
 
 如果想要联系我，可以关注我的公众号【IT书架】
 
+![IT书架](openstatic/wechat.png)
 
 ## 教程
 
