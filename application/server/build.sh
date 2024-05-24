@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t fabric-realty.server .
+docker build -t itshujia/fabric-realty.server .
